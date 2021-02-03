@@ -37,4 +37,4 @@ Assert.assertEquals("value1", MY_PROPERTY.get());
 ```
 If the value in the file will be updated, you don't need to restart the application, `MY_PROPERTY.get()` will return the new value.
 
-See [Wiki](/wiki) for a full description of the **dynocon** library. 
+See [Wiki](https://github.com/Comcast/dynocon/wiki) for a full description of the **dynocon** library. 
