@@ -1,0 +1,8 @@
+/*/target/
+/.classpath
+/.project
+/.settings
+/release.properties
+/.*
+*.iml
+!.gitignore

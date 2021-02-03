@@ -1,0 +1,26 @@
+{
+  "test3": "val3",
+  "test4": "val4",
+  "test5": {
+    "test51": "val51",
+    "test52": 51,
+    "test53": true
+  },
+  "test6": 789,
+  "test7": true,
+  "test8": 12.56,
+  "test9": {
+    "key1": {
+      "test51": "val91",
+      "test52": 91,
+      "test53": true
+    },
+    "key2": {
+      "test51": "val92",
+      "test52": 92,
+      "test53": false
+    }
+  },
+  "test10": ["val101", "val102", "val103"],
+  "test12": [66.77, 88.99]
+}
