@@ -12,4 +12,4 @@ DynamoDB Table as a source of dynamic properties
 </dependency>
 ```
 
-[Documentation](/Comcast/dynocon/wiki/AWS-DynamoDB-table-as-a-source-of-your-configuration)
+[Documentation](https://github.com/Comcast/dynocon/wiki/AWS-DynamoDB-table-as-a-source-of-your-configuration)
