@@ -10,7 +10,7 @@ JSON is a first-class citizen and supported out of the box as well as the tradit
 
 ```xml
 <dependency>
-	<groupId>com.comcast</groupId>
+	<groupId>com.comcast.dynocon</groupId>
 	<artifactId>dynocon-core</artifactId>
 	<version>1.0.2</version>
 </dependency>

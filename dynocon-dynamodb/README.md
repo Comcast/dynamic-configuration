@@ -6,7 +6,7 @@ DynamoDB Table as a source of dynamic properties
 
 ```xml
 <dependency>
-	<groupId>com.comcast</groupId>
+	<groupId>com.comcast.dynocon</groupId>
 	<artifactId>dynocon-dynamodb</artifactId>
 	<version>1.0.2</version>
 </dependency>
