@@ -12,7 +12,7 @@ JSON is a first-class citizen and supported out of the box as well as the tradit
 <dependency>
 	<groupId>com.comcast</groupId>
 	<artifactId>dynocon-core</artifactId>
-	<version>1.0</version>
+	<version>1.0.2</version>
 </dependency>
 ```
 
