@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.comcast.dynocon</groupId>
+        <groupId>com.comcast</groupId>
         <artifactId>dynocon-parent</artifactId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.3</version>
     </parent>
 
     <artifactId>dynocon-core</artifactId>

@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>com.comcast.dynocon</groupId>
+        <groupId>com.comcast</groupId>
         <artifactId>dynocon-parent</artifactId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.3</version>
     </parent>
-    
+
 	<artifactId>dynocon-dynamodb</artifactId>
 
 	<name>Dynamic Configuration from AWS DynamoDB</name>
@@ -15,9 +15,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.comcast.dynocon</groupId>
+			<groupId>com.comcast</groupId>
 			<artifactId>dynocon-core</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.amazonaws</groupId>
