@@ -8,6 +8,22 @@
     <name>Dynamic Configuration Parent</name>
     <description>JSON Dynamic Properties</description>
 
+    <url>https://github.com/Comcast/dynamic-configuration</url>
+
+    <licenses>
+        <license>
+            <name>Apache-2.0 License</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/Comcast/dynamic-configuration</url>
+        <connection>scm:git:git://github.com/Comcast/dynamic-configuration.git</connection>
+        <developerConnection>scm:git:git@github.com:Comcast/dynamic-configuration.git</developerConnection>
+    </scm>
+
     <developers>
         <developer>
             <email>eugene_strokin@comcast.com</email>
