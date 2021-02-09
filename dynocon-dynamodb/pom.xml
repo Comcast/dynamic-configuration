@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>com.comcast</groupId>
+        <groupId>com.comcast.dynocon</groupId>
         <artifactId>dynocon-parent</artifactId>
         <version>1.0.3</version>
     </parent>
@@ -15,7 +15,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.comcast</groupId>
+			<groupId>com.comcast.dynocon</groupId>
 			<artifactId>dynocon-core</artifactId>
 			<version>1.0.3</version>
 		</dependency>
