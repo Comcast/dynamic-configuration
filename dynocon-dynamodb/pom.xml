@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.comcast</groupId>
         <artifactId>dynocon-parent</artifactId>
-        <version>1.0.4-SNAPSHOT</version>
+        <version>1.0.3</version>
     </parent>
 
 	<artifactId>dynocon-dynamodb</artifactId>
@@ -17,7 +17,7 @@
 		<dependency>
 			<groupId>com.comcast</groupId>
 			<artifactId>dynocon-core</artifactId>
-			<version>1.0.4-SNAPSHOT</version>
+			<version>1.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.amazonaws</groupId>
