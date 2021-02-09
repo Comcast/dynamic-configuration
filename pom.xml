@@ -3,7 +3,7 @@
 
     <groupId>com.comcast</groupId>
     <artifactId>dynocon-parent</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Dynamic Configuration Parent</name>
     <description>JSON Dynamic Properties</description>
@@ -18,7 +18,7 @@
 
     <modules>
         <module>dynocon-core</module>
-		<module>dynocon-dynamodb</module>
+        <module>dynocon-dynamodb</module>
     </modules>
 
     <properties>
@@ -27,27 +27,40 @@
     </properties>
 
     <build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.1</version>
-				<configuration>
-					<forkMode>always</forkMode>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+                <configuration>
+                    <forkMode>always</forkMode>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<name>Central Repository OSSRH</name>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <name>Central Repository OSSRH</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>github-repo</id>
+            <distributionManagement>
+                <repository>
+                    <id>github</id>
+                    <name>GitHub Packages</name>
+                    <url>https://maven.pkg.github.com/Comcast/dynamic-configuration</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>
