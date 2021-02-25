@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,6 +72,7 @@ public class Property<T> {
             }
         });
         put(Boolean.class, (ValueParser<Boolean>) Boolean::valueOf);
+        put(Duration.class, (ValueParser<Duration>) Duration::parse);
     }};
 
     protected Class<T> clazz;

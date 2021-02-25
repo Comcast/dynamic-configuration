@@ -1,42 +1,43 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
-    
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.comcast.dynocon</groupId>
         <artifactId>dynocon-parent</artifactId>
-        <version>1.0.4-SNAPSHOT</version>
+        <version>1.0.4</version>
     </parent>
 
-	<artifactId>dynocon-dynamodb</artifactId>
+    <artifactId>dynocon-dynamodb</artifactId>
 
-	<name>Dynamic Configuration from AWS DynamoDB</name>
-	<description>AWS DynamoDB source for JSON Dynamic Properties</description>
+    <name>Dynamic Configuration from AWS DynamoDB</name>
+    <description>AWS DynamoDB source for JSON Dynamic Properties</description>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.comcast.dynocon</groupId>
-			<artifactId>dynocon-core</artifactId>
-			<version>1.0.4-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk-dynamodb</artifactId>
-			<version>1.11.930</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>com.comcast.dynocon</groupId>
+            <artifactId>dynocon-core</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-dynamodb</artifactId>
+            <version>1.11.930</version>
+        </dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>

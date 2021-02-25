@@ -17,6 +17,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -110,6 +111,12 @@ public class PropertyTest {
         Assert.assertEquals(4, prop.get().get(1).intValue());
         Assert.assertEquals(6, prop.get().get(2).intValue());
         Assert.assertEquals(8, prop.get().get(3).intValue());
+    }
+
+    @Test
+    public void testPropDuration() {
+        Property<Duration> prop = new Property<>("test13", Duration.class);
+        Assert.assertEquals(Duration.ofSeconds(2), prop.get());
     }
 
     public static class Test5 {
