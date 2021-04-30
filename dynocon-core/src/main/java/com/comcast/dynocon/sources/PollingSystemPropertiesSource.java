@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +34,7 @@ public class PollingSystemPropertiesSource extends SystemPropertiesSource {
 
     public PollingSystemPropertiesSource() {
         super();
-        String intStr = System.getProperty(PARAM_POLLING_DELAY);
+        String intStr = Optional.ofNullable(System.getenv(PARAM_POLLING_DELAY)).orElse(System.getProperty(PARAM_POLLING_DELAY));
         int delaySec = DEFAULT_POLLING_DELAY_SEC;
         if (intStr != null) {
             try {

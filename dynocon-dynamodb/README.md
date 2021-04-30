@@ -8,7 +8,7 @@ DynamoDB Table as a source of dynamic properties
 <dependency>
 	<groupId>com.comcast.dynocon</groupId>
 	<artifactId>dynocon-dynamodb</artifactId>
-	<version>1.0.3</version>
+	<version>1.1.0</version>
 </dependency>
 ```
 

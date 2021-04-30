@@ -24,6 +24,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -37,7 +38,7 @@ public class PollingUrlsPropertiesSource implements PropertiesSource {
 
     private static final String DEFAULT_URLS = "file:/opt/service.json";
     private static final int DEFAULT_POLLING_DELAY_SEC = 10;
-    private static final String[] PATHS = System.getProperty(PARAM_URLS, DEFAULT_URLS).split(",");
+    private static final String[] PATHS = Optional.ofNullable(System.getenv(PARAM_URLS)).orElse(System.getProperty(PARAM_URLS, DEFAULT_URLS)).split(",");
 
     protected final Map<String, InputStreamParser> parsers;
     protected Map<String, String> result;
@@ -52,7 +53,7 @@ public class PollingUrlsPropertiesSource implements PropertiesSource {
 
         result = getProperties();
 
-        String intStr = System.getProperty(PARAM_POLLING_DELAY);
+        String intStr = Optional.ofNullable(System.getenv(PARAM_POLLING_DELAY)).orElse(System.getProperty(PARAM_POLLING_DELAY));
         int delaySec = DEFAULT_POLLING_DELAY_SEC;
         if (intStr != null) {
             try {

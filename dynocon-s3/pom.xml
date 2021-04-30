@@ -1,18 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-    <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <groupId>com.comcast.dynocon</groupId>
         <artifactId>dynocon-parent</artifactId>
+        <groupId>com.comcast.dynocon</groupId>
         <version>1.1.0</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dynocon-dynamodb</artifactId>
+    <artifactId>dynocon-s3</artifactId>
+    <name>Dynamic Configuration from AWS S3 Bucket</name>
+    <description>AWS S3 Bucket source for JSON Dynamic Properties</description>
 
-    <name>Dynamic Configuration from AWS DynamoDB</name>
-    <description>AWS DynamoDB source for JSON Dynamic Properties</description>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -22,7 +26,7 @@
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-dynamodb</artifactId>
+            <artifactId>aws-java-sdk-s3</artifactId>
             <version>1.11.1008</version>
         </dependency>
 
@@ -39,5 +43,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>

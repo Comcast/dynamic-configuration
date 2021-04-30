@@ -4,7 +4,7 @@
 
     <groupId>com.comcast.dynocon</groupId>
     <artifactId>dynocon-parent</artifactId>
-    <version>1.0.4</version>
+    <version>1.1.0</version>
     <packaging>pom</packaging>
     <name>Dynamic Configuration Parent</name>
     <description>JSON Dynamic Properties</description>
@@ -36,6 +36,7 @@
     <modules>
         <module>dynocon-core</module>
         <module>dynocon-dynamodb</module>
+        <module>dynocon-s3</module>
     </modules>
 
     <properties>
