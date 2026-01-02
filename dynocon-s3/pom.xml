@@ -5,7 +5,7 @@
     <parent>
         <artifactId>dynocon-parent</artifactId>
         <groupId>com.comcast.dynocon</groupId>
-        <version>1.1.0</version>
+        <version>2.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,20 +14,20 @@
     <description>AWS S3 Bucket source for JSON Dynamic Properties</description>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.comcast.dynocon</groupId>
             <artifactId>dynocon-core</artifactId>
-            <version>1.1.0</version>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-s3</artifactId>
-            <version>1.11.1008</version>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>2.40.5</version>
         </dependency>
 
         <dependency>

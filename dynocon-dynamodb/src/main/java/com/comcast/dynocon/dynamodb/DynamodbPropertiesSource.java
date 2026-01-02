@@ -12,16 +12,15 @@
  */
 package com.comcast.dynocon.dynamodb;
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.ScanRequest;
-import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.comcast.dynocon.ConfigFactory;
 import com.comcast.dynocon.ConfigUtil;
 import com.comcast.dynocon.PropertiesSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.ScanRequest;
+import software.amazon.awssdk.services.dynamodb.model.ScanResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +36,7 @@ public class DynamodbPropertiesSource implements PropertiesSource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DynamodbPropertiesSource.class);
 
-    private static final AmazonDynamoDB CLIENT = AmazonDynamoDBClientBuilder.standard().build();
+    private static final DynamoDbClient CLIENT = DynamoDbClient.create();
     private static final String DEFAULT_TABLE_NAME = "config";
     private static final int DEFAULT_POLLING_DELAY_SEC = 30;
 
@@ -95,13 +94,20 @@ public class DynamodbPropertiesSource implements PropertiesSource {
         try {
             Map<String, AttributeValue> lastKeyEvaluated = null;
             do {
-                ScanResult scanResult = CLIENT.scan(new ScanRequest().withTableName(tableName).withExclusiveStartKey(lastKeyEvaluated));
-                for (Map<String, AttributeValue> item : scanResult.getItems()) {
-                    LOGGER.trace("DynamoDB item: key=`{}` value=`{}`", item.get("key").getS(), item.get("value").getS());
-                    result.put(item.get("key").getS(), item.get("value").getS());
+                ScanRequest.Builder scanRequestBuilder = ScanRequest.builder().tableName(tableName);
+                if (lastKeyEvaluated != null && !lastKeyEvaluated.isEmpty()) {
+                    scanRequestBuilder.exclusiveStartKey(lastKeyEvaluated);
                 }
-                lastKeyEvaluated = scanResult.getLastEvaluatedKey();
-            } while (lastKeyEvaluated != null);
+                ScanRequest scanRequest = scanRequestBuilder.build();
+                ScanResponse scanResponse = CLIENT.scan(scanRequest);
+                for (Map<String, AttributeValue> item : scanResponse.items()) {
+                    String key = item.get("key").s();
+                    String value = item.get("value").s();
+                    LOGGER.trace("DynamoDB item: key=`{}` value=`{}`", key, value);
+                    result.put(key, value);
+                }
+                lastKeyEvaluated = scanResponse.lastEvaluatedKey();
+            } while (lastKeyEvaluated != null && !lastKeyEvaluated.isEmpty());
             lastKnownGood = result;
         } catch (Throwable e) {
             result = lastKnownGood;

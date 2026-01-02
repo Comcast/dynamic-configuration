@@ -1,21 +1,27 @@
 package com.comcast.dynocon.s3;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.*;
-import com.amazonaws.util.IOUtils;
 import com.comcast.dynocon.ConfigFactory;
 import com.comcast.dynocon.ConfigUtil;
 import com.comcast.dynocon.PropertiesSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
+import software.amazon.awssdk.services.s3.model.S3Object;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class S3PropertiesSource implements PropertiesSource {
 
@@ -24,7 +30,7 @@ public class S3PropertiesSource implements PropertiesSource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(S3PropertiesSource.class);
 
-    private static final AmazonS3 CLIENT = AmazonS3ClientBuilder.standard().build();
+    private static final S3Client CLIENT = S3Client.create();
     private static final String DEFAULT_BUCKET_NAME = "config";
     private static final int DEFAULT_POLLING_DELAY_SEC = 30;
 
@@ -81,22 +87,29 @@ public class S3PropertiesSource implements PropertiesSource {
     protected Map<String, String> getProperties() {
         Map<String, String> result = new HashMap<>();
         try {
-            ListObjectsV2Request req = new ListObjectsV2Request().withBucketName(bucketName).withMaxKeys(100);
-            ListObjectsV2Result s3Result;
+            String continuationToken = null;
             do {
-                s3Result = CLIENT.listObjectsV2(req);
-                for (S3ObjectSummary objectSummary : s3Result.getObjectSummaries()) {
-                    S3Object fullObject = CLIENT.getObject(new GetObjectRequest(bucketName, objectSummary.getKey()));
-                    String key = objectSummary.getKey();
-                    if (key.endsWith(".json")) {
-                        key = key.substring(0, key.length() - 5);
-                    }
-                    String value = IOUtils.toString(fullObject.getObjectContent());
-                    LOGGER.trace("S3 item: key=`{}` value=`{}`", key, value);
-                    result.put(key, value);
+                ListObjectsV2Request.Builder reqBuilder = ListObjectsV2Request.builder().bucket(bucketName).maxKeys(100);
+                if (continuationToken != null) {
+                    reqBuilder.continuationToken(continuationToken);
                 }
-                req.setContinuationToken(s3Result.getNextContinuationToken());
-            } while (s3Result.isTruncated());
+                ListObjectsV2Request req = reqBuilder.build();
+                ListObjectsV2Response s3Result = CLIENT.listObjectsV2(req);
+                for (S3Object objectSummary : s3Result.contents()) {
+                    GetObjectRequest getObjectRequest = GetObjectRequest.builder().bucket(bucketName).key(objectSummary.key()).build();
+                    try (InputStream is = CLIENT.getObject(getObjectRequest);
+                         BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+                        String key = objectSummary.key();
+                        if (key.endsWith(".json")) {
+                            key = key.substring(0, key.length() - 5);
+                        }
+                        String value = reader.lines().collect(Collectors.joining("\n"));
+                        LOGGER.trace("S3 item: key=`{}` value=`{}`", key, value);
+                        result.put(key, value);
+                    }
+                }
+                continuationToken = s3Result.nextContinuationToken();
+            } while (continuationToken != null && !continuationToken.isEmpty());
             lastKnownGood = result;
         } catch (Throwable e) {
             result = lastKnownGood;
