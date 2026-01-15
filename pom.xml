@@ -31,6 +31,16 @@
             <name>Eugene Strokin</name>
             <id>strokine</id>
         </developer>
+        <developer>
+            <email>hemanto_bora@comcast.com</email>
+            <name>Hemanto Bora</name>
+            <id>hbora921</id>
+        </developer>
+        <developer>
+            <email>jhulfikar_kabeer@comcast.com</email>
+            <name>Jhulfikar Kabeer</name>
+            <id>jkabee200</id>
+        </developer>
     </developers>
 
     <modules>
@@ -49,26 +59,31 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.1</version>
+                <version>3.2.5</version>  <!-- Updated version -->
                 <configuration>
-                    <forkMode>always</forkMode>
+                    <forkCount>1</forkCount>
+                    <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>
+
+            <!-- REMOVED nexus-staging-maven-plugin -->
+            <!-- ADD central-publishing-maven-plugin instead -->
             <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.9.0</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <publishingServerId>central</publishingServerId>  <!-- Matches server-id in GitHub Actions -->
+                    <autoPublish>true</autoPublish>  <!-- Auto-publish without manual staging -->
+                    <waitUntil>published</waitUntil>  <!-- Wait for publishing to complete -->
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.3.1</version>  <!-- Updated version -->
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -78,10 +93,14 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.6.3</version>  <!-- Updated version -->
+                <configuration>
+                    <release>25</release>  <!-- Added for Java 25 -->
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -91,10 +110,11 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
+                <version>3.1.0</version>  <!-- Updated version -->
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -108,15 +128,14 @@
         </plugins>
     </build>
 
+    <!-- UPDATED Distribution Management for Central Portal -->
     <distributionManagement>
         <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <id>central</id>  <!-- Changed from ossrh -->
         </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <name>Central Repository OSSRH</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>central</id>  <!-- Changed from ossrh -->
+            <name>Central Repository</name>
         </repository>
     </distributionManagement>
 </project>
