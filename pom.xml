@@ -32,14 +32,12 @@
             <id>strokine</id>
         </developer>
         <developer>
-            <email>hemanto_bora@comcast.com</email>
+            <email>hemantobora@gmail.com</email>
             <name>Hemanto Bora</name>
-            <id>hbora921</id>
         </developer>
         <developer>
-            <email>jhulfikar_kabeer@comcast.com</email>
+            <email>jhulfikarali@gmail.com</email>
             <name>Jhulfikar Kabeer</name>
-            <id>jkabee200</id>
         </developer>
     </developers>
 
@@ -59,31 +57,29 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>  <!-- Updated version -->
+                <version>3.2.5</version>
                 <configuration>
                     <forkCount>1</forkCount>
                     <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>
 
-            <!-- REMOVED nexus-staging-maven-plugin -->
-            <!-- ADD central-publishing-maven-plugin instead -->
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
                 <version>0.9.0</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <publishingServerId>central</publishingServerId>  <!-- Matches server-id in GitHub Actions -->
-                    <autoPublish>true</autoPublish>  <!-- Auto-publish without manual staging -->
-                    <waitUntil>published</waitUntil>  <!-- Wait for publishing to complete -->
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                    <waitUntil>published</waitUntil>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.1</version>  <!-- Updated version -->
+                <version>3.3.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -97,9 +93,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.6.3</version>  <!-- Updated version -->
+                <version>3.6.3</version>
                 <configuration>
-                    <release>25</release>  <!-- Added for Java 25 -->
+                    <release>25</release>
                 </configuration>
                 <executions>
                     <execution>
@@ -114,7 +110,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.1.0</version>  <!-- Updated version -->
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -128,13 +124,12 @@
         </plugins>
     </build>
 
-    <!-- UPDATED Distribution Management for Central Portal -->
     <distributionManagement>
         <snapshotRepository>
-            <id>central</id>  <!-- Changed from ossrh -->
+            <id>central</id>
         </snapshotRepository>
         <repository>
-            <id>central</id>  <!-- Changed from ossrh -->
+            <id>central</id>
             <name>Central Repository</name>
         </repository>
     </distributionManagement>
