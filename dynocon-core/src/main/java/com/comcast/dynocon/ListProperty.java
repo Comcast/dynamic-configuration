@@ -12,11 +12,11 @@
  */
 package com.comcast.dynocon;
 
-import com.fasterxml.jackson.databind.type.CollectionType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.type.CollectionType;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class ListProperty<T> extends Property<List<T>> {
     protected List<T> getValue() {
         try {
             return OBJECT_MAPPER.readValue(currentRawValue, type);
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             LOGGER.error("Cannot parse property {} from value {}", propertyName, currentRawValue);
         }
         return null;

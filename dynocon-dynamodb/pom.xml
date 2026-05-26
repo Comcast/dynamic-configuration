@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.comcast.dynocon</groupId>
         <artifactId>dynocon-parent</artifactId>
-        <version>2.0.0</version>
+        <version>3.0.0</version>
     </parent>
 
     <artifactId>dynocon-dynamodb</artifactId>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.comcast.dynocon</groupId>
             <artifactId>dynocon-core</artifactId>
-            <version>2.0.0</version>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
