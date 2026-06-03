@@ -14,12 +14,7 @@ package com.comcast.dynocon.sources.parsers;
 
 import com.comcast.dynocon.InputStreamParser;
 import tools.jackson.core.JacksonException;
-import tools.jackson.core.StreamWriteFeature;
-import tools.jackson.core.json.JsonReadFeature;
-import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.ObjectMapper;
-import tools.jackson.databind.json.JsonMapper;
 
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -28,21 +23,14 @@ import java.util.Map;
 
 public class JsonTypeParser implements InputStreamParser {
 
-    protected static final ObjectMapper OBJECT_MAPPER = JsonMapper.builder()
-            .enable(JsonReadFeature.ALLOW_JAVA_COMMENTS)
-            .enable(JsonReadFeature.ALLOW_YAML_COMMENTS)
-            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-            .enable(StreamWriteFeature.IGNORE_UNKNOWN)
-            .build();
-
     @Override
     public Map<String, String> parse(InputStreamReader reader) throws JacksonException {
         Map<String, String> result = new HashMap<>();
-        JsonNode props = OBJECT_MAPPER.readValue(reader, JsonNode.class);
+        JsonNode props = DynoconObjectMapper.INSTANCE.readValue(reader, JsonNode.class);
         for (Iterator<String> iterator = props.propertyNames().iterator(); iterator.hasNext(); ) {
             String key = iterator.next();
             JsonNode prop = props.get(key);
-            result.put(key, prop.isValueNode() ? prop.asText() : OBJECT_MAPPER.writeValueAsString(prop));
+            result.put(key, prop.isValueNode() ? prop.asText(null) : DynoconObjectMapper.INSTANCE.writeValueAsString(prop));
         }
         return result;
     }
