@@ -12,11 +12,11 @@
  */
 package com.comcast.dynocon;
 
-import com.fasterxml.jackson.databind.type.MapType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.type.MapType;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +35,7 @@ public class MapProperty<T> extends Property<Map<String, T>> {
     protected Map<String, T> getValue() {
         try {
             return OBJECT_MAPPER.readValue(currentRawValue, type);
-        } catch (IOException e) {
+        } catch (JacksonException e) {
             LOGGER.error("Cannot parse property {} from value {}", propertyName, currentRawValue, e);
         }
         return null;

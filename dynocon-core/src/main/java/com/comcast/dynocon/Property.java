@@ -12,14 +12,11 @@
  */
 package com.comcast.dynocon;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.comcast.dynocon.sources.parsers.DynoconObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.jackson.core.JacksonException;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
@@ -30,12 +27,6 @@ public class Property<T> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Property.class);
 
-    protected static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
-            .configure(JsonParser.Feature.ALLOW_COMMENTS, true)
-            .configure(JsonParser.Feature.ALLOW_YAML_COMMENTS, true)
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .configure(JsonGenerator.Feature.IGNORE_UNKNOWN, true)
-            .configure(JsonParser.Feature.IGNORE_UNDEFINED, true);
 
     protected static final Map<Class<?>, ValueParser<?>> VALUE_PARSERS = new HashMap<Class<?>, ValueParser<?>>() {{
         put(String.class, (ValueParser<String>) value -> value);
@@ -98,10 +89,10 @@ public class Property<T> {
             if (parser != null) {
                 return (T) parser.parseValue(currentRawValue);
             } else {
-                return OBJECT_MAPPER.readValue(currentRawValue, clazz);
+                return DynoconObjectMapper.INSTANCE.readValue(currentRawValue, clazz);
             }
-        } catch (IOException e) {
-            LOGGER.error("Cannot parse property {} from value {}", propertyName, currentRawValue);
+        } catch (JacksonException | IllegalArgumentException e) {
+            LOGGER.error("Cannot parse property {} from value {}", propertyName, currentRawValue, e);
         }
         return null;
     }
