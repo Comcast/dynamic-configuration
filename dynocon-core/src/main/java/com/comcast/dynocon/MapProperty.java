@@ -12,6 +12,7 @@
  */
 package com.comcast.dynocon;
 
+import com.comcast.dynocon.sources.parsers.DynoconObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tools.jackson.core.JacksonException;
@@ -28,13 +29,13 @@ public class MapProperty<T> extends Property<Map<String, T>> {
 
     public MapProperty(String propertyName, Class<T> clazz) {
         super(propertyName, null);
-        type = OBJECT_MAPPER.getTypeFactory().constructMapType(HashMap.class, String.class, clazz);
+        type = DynoconObjectMapper.INSTANCE.getTypeFactory().constructMapType(HashMap.class, String.class, clazz);
     }
 
     @Override
     protected Map<String, T> getValue() {
         try {
-            return OBJECT_MAPPER.readValue(currentRawValue, type);
+            return DynoconObjectMapper.INSTANCE.readValue(currentRawValue, type);
         } catch (JacksonException e) {
             LOGGER.error("Cannot parse property {} from value {}", propertyName, currentRawValue, e);
         }

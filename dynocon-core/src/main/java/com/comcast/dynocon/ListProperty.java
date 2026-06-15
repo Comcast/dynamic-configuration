@@ -12,6 +12,7 @@
  */
 package com.comcast.dynocon;
 
+import com.comcast.dynocon.sources.parsers.DynoconObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tools.jackson.core.JacksonException;
@@ -28,15 +29,15 @@ public class ListProperty<T> extends Property<List<T>> {
 
     public ListProperty(String propertyName, Class<T> clazz) {
         super(propertyName, null);
-        type = OBJECT_MAPPER.getTypeFactory().constructCollectionType(ArrayList.class, clazz);
+        type = DynoconObjectMapper.INSTANCE.getTypeFactory().constructCollectionType(ArrayList.class, clazz);
     }
 
     @Override
     protected List<T> getValue() {
         try {
-            return OBJECT_MAPPER.readValue(currentRawValue, type);
+            return DynoconObjectMapper.INSTANCE.readValue(currentRawValue, type);
         } catch (JacksonException e) {
-            LOGGER.error("Cannot parse property {} from value {}", propertyName, currentRawValue);
+            LOGGER.error("Cannot parse property {} from value {}", propertyName, currentRawValue, e);
         }
         return null;
     }
